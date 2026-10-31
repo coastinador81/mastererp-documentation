@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: MasterERP Admin API — Tenant Onboarding
+  version: 0.1.0
+servers:
+  - url: https://{apiId}.execute-api.{region}.amazonaws.com
+    variables:
+      apiId:
+        default: mastererp-dev-admin-api
+      region:
+        default: us-west-2
+security:
+  - bearerAuth: []
+paths:
+  /v1/onboarding/sessions:
+    post:
+      summary: Crear sesión de onboarding
+      responses:
+        "201":
+          description: Sesión creada
+  /v1/onboarding/sessions/{id}:
+    get:
+      summary: Obtener sesión
+      parameters: [{ in: path, name: id, required: true, schema: { type: string, format: uuid } }]
+      responses:
+        "200":
+          description: OK
+    patch:
+      summary: Actualizar sesión
+      parameters: [{ in: path, name: id, required: true, schema: { type: string, format: uuid } }]
+      responses:
+        "200":
+          description: OK
+  /v1/onboarding/sessions/{id}/complete:
+    post:
+      summary: Completar onboarding (no activa tenant sin provisioner)
+      parameters: [{ in: path, name: id, required: true, schema: { type: string, format: uuid } }]
+      responses:
+        "200":
+          description: OK
+  /v1/onboarding/sessions/{id}/progress:
+    get:
+      summary: Progreso de la sesión
+      parameters: [{ in: path, name: id, required: true, schema: { type: string, format: uuid } }]
+      responses:
+        "200":
+          description: OK
+  /v1/onboarding/sessions/{id}/steps/{stepId}:
+    put:
+      summary: Registrar respuesta de paso
+      parameters:
+        - { in: path, name: id, required: true, schema: { type: string, format: uuid } }
+        - { in: path, name: stepId, required: true, schema: { type: string, format: uuid } }
+      responses:
+        "200":
+          description: OK
+  /v1/tenants:
+    post:
+      summary: Crear tenant (requiere grupo tenant.register o platform.admin)
+      responses:
+        "201":
+          description: Tenant creado
+        "403":
+          description: No autorizado
+  /v1/tenants/{id}/config:
+    get:
+      summary: Configuración del tenant
+      parameters: [{ in: path, name: id, required: true, schema: { type: string, format: uuid } }]
+      responses:
+        "200":
+          description: OK
+    patch:
+      summary: Actualizar configuración
+      parameters: [{ in: path, name: id, required: true, schema: { type: string, format: uuid } }]
+      responses:
+        "200":
+          description: OK
+  /v1/modules:
+    get:
+      summary: Catálogo de módulos activos
+      responses:
+        "200":
+          description: OK
+  /v1/tenants/{id}/modules:
+    get:
+      summary: Módulos del tenant
+      parameters: [{ in: path, name: id, required: true, schema: { type: string, format: uuid } }]
+      responses:
+        "200":
+          description: OK
+  /v1/tenants/{id}/modules/{moduleId}:
+    put:
+      summary: Asignar o actualizar módulo del tenant
+      parameters:
+        - { in: path, name: id, required: true, schema: { type: string, format: uuid } }
+        - { in: path, name: moduleId, required: true, schema: { type: string, format: uuid } }
+      responses:
+        "200":
+          description: OK
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
