@@ -1,6 +1,7 @@
 # Fase 6 — Oleada 2: Nodos e Inventario
 
-Estado: loader candidato validado localmente; exportación/carga DEV pendientes.
+Estado: loader ejecutado y reconciliado en DEV. Evidencia consolidada en
+[phase-6-dev-evidence.md](phase-6-dev-evidence.md).
 
 ## Diseño seguro
 

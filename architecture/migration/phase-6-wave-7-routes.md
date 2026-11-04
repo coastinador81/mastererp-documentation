@@ -1,6 +1,7 @@
 # Fase 6 — oleada 7: Rutas
 
-Estado: candidato local completo; no ejecutado contra DEV.
+Estado: ejecutado y reconciliado en sombra DEV. Ver
+[evidencia consolidada](phase-6-dev-evidence.md).
 
 Los Pedidos con `routeId` se reconstruyen hasta `READY`. El loader de Rutas
 resuelve Pedidos y Repartidores por referencia externa, crea las paradas, asigna

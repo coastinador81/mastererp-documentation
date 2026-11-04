@@ -1,8 +1,8 @@
 # Fase 7 — preflight de infraestructura DEV
 
-Estado: nota de preparación local, diferida. La Fase 7 no inicia hasta cerrar
-la Fase 6 mediante la ejecución DEV, reconciliación y cutover autorizados. No
-consulta AWS, no crea change sets y no autoriza despliegues.
+Estado: lista para iniciar controles de solo lectura. Fase 6 cerró la carga y
+reconciliación de datos en sombra; el cutover ocurre después de integrar y
+probar infraestructura, por lo que no es prerrequisito de esta fase.
 
 ## Evidencia local
 
@@ -11,7 +11,7 @@ consulta AWS, no crea change sets y no autoriza despliegues.
 | Estructura de Infrastructure | `validate_structure.py` aprobado | No certifica el estado de AWS. |
 | Propiedad/rutas de la migración | `validate_phase5.py`: 12 propietarios y 54 rutas | Solo verifica plantillas locales. |
 | Región y cuenta declaradas | `us-west-1`, cuenta histórica `277352717693` | Requiere consulta actual de identidad y recursos. |
-| Repositorios | Database y Documentation tienen el cierre local de Fase 6; los cuatro árboles están limpios | No implica publicación remota. |
+| Repositorios | Database contiene carga/reconciliación publicada; Documentation registra la evidencia | Cada repositorio conserva su propio estado Git. |
 
 ## Condiciones que permanecen bloqueantes
 
@@ -37,5 +37,6 @@ consulta AWS, no crea change sets y no autoriza despliegues.
 5. Solo tras aprobación explícita, ejecutar el change set y conservar el plan
    de rollback compatible con el stack existente.
 
-Por esto, las casillas 7-region, 7-owner, 7-change y 7-deploy continúan sin
-marcar. La fuente de verdad de Tu Mandadito no cambia.
+Las casillas 7-region, 7-owner, 7-change y 7-deploy continúan sin marcar hasta
+obtener evidencia propia de esta fase. La fuente de verdad de Tu Mandadito no
+cambia.

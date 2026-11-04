@@ -1,6 +1,7 @@
 # Fase 6 — Oleada 1: Categorías y Productos
 
-Estado: loader candidato validado localmente; exportación/carga DEV pendientes.
+Estado: loader ejecutado y reconciliado en DEV. Evidencia consolidada en
+[phase-6-dev-evidence.md](phase-6-dev-evidence.md).
 
 ## Diseño
 

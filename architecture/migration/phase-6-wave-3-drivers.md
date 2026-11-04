@@ -1,6 +1,7 @@
 # Fase 6 — Oleada 3: Repartidores
 
-Estado: loader candidato validado localmente; exportación/carga DEV pendientes.
+Estado: loader ejecutado y reconciliado en DEV. Evidencia consolidada en
+[phase-6-dev-evidence.md](phase-6-dev-evidence.md).
 
 Repartidores permanece bajo Transporte. El transformador reúne perfiles DRIVER
 y asociaciones `NODE_DRIVER`, traduce cada Nodo mediante el mapa de sucursales y

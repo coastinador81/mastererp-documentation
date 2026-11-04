@@ -1,7 +1,8 @@
 # Fase 6 — oleada 6: Pedidos preparados e históricos
 
-Estado: candidato local completo para `READY`, `OUT_FOR_DELIVERY`, `DELIVERED`
-y `CANCELLED`; no ejecutado contra DEV ni promovido como fuente de verdad.
+Estado: `READY`, `OUT_FOR_DELIVERY`, `DELIVERED` y `CANCELLED` ejecutados y
+reconciliados en sombra DEV; no promovidos como fuente de verdad. Ver
+[evidencia consolidada](phase-6-dev-evidence.md).
 
 ## Estrategia
 

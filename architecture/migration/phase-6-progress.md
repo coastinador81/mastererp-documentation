@@ -1,7 +1,7 @@
 # Fase 6 — datos y convivencia
 
-Estado: implementación local completa. Carga real, reconciliación con DEV y
-cutover todavía no autorizados.
+Estado: cierre de datos en sombra DEV completo. Carga y reconciliación semántica
+correctas; Tu Mandadito continúa como fuente de verdad durante la convivencia.
 
 ## Estrategia de convivencia elegida
 
@@ -39,9 +39,10 @@ Database contiene `migration/phase6/transform_export.py`. Acepta JSONL plano o
 DynamoDB JSON, exige un archivo de mapeo y genera IDs UUIDv5 estables, archivos
 canónicos ordenados y manifiesto SHA-256. No consulta AWS ni escribe RDS.
 
-`reconcile_bundle.py` compara el bundle fuente con una instantánea canónica del
-destino y falla ante registros faltantes, inesperados o diferentes. Dos pruebas
-locales verifican determinismo, aislamiento tenant y detección de diferencias.
+`reconcile_dev_snapshot.py` compara el bundle firmado con una inspección DEV de
+solo lectura y falla ante registros faltantes, inesperados o diferentes. La
+ejecución real finalizó sin diferencias. Evidencia en
+[phase-6-dev-evidence.md](phase-6-dev-evidence.md).
 
 La primera oleada ya dispone de loader candidato por lotes para Categorías y
 Productos. La evidencia y las puertas de promoción están en
@@ -89,18 +90,17 @@ El cierre de ingeniería y las puertas operativas están en
   quedar en el reporte de excepciones.
 - Inventario requiere nodo explícito. No se inventa un nodo para filas legacy.
 
-## Bloqueos antes de cargar Pedidos
+## Resultado DEV
 
-Customer → Tercero/Cliente y todos los estados de Pedidos ya tienen candidatos
-locales idempotentes. Pedidos permanece en origen hasta ejecutar una exportación
-real y reconciliar en DEV estados, líneas, totales, reservas y existencias. Rutas
-deben consumir la nueva resolución autorizada por referencia externa.
+La carga incluyó Clientes, todos los estados de Pedidos, reservas, Preparación y
+Rutas. Los conteos, claves, estados, líneas, totales, existencias y reservas
+coincidieron con el bundle fuente. La sombra DEV no responde tráfico todavía.
 
 ## Criterio para marcar los puntos restantes
 
 - **Migración repetible:** loader transaccional aprobado, dry-run y reejecución
   sobre una base desechable sin duplicados.
-- **Comparación:** export real y snapshot DEV con conteos, claves, estados,
-  totales y hashes sin diferencias no justificadas.
-- **Nueva fuente de verdad:** smoke/E2E, delta final, rollback probado y aprobación
-  explícita del Product Owner. Hasta entonces Tu Mandadito conserva esa función.
+- **Comparación:** completada con export real y snapshot DEV, sin diferencias.
+- **Fuente durante convivencia:** Tu Mandadito permanece como fuente de verdad.
+- **Cutover posterior:** requiere infraestructura integrada, smoke/E2E, delta
+  final, rollback probado y aprobación explícita del Product Owner.

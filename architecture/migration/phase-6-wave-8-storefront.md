@@ -1,6 +1,7 @@
 # Fase 6 — oleada 8: Storefront
 
-Estado: candidato local completo; no ejecutado contra DEV.
+Estado: ejecutado y reconciliado en sombra DEV. Ver
+[evidencia consolidada](phase-6-dev-evidence.md).
 
 Se migra únicamente configuración `MERCHANT` a Tiendas. Cada comercio requiere
 un mapa explícito hacia Nodo y dominio; no se inventan dominios. Catálogo,

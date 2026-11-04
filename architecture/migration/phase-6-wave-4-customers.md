@@ -1,7 +1,7 @@
 # Fase 6 — oleada 4: Clientes
 
-Estado: candidato local completo; no ejecutado contra DEV ni promovido como
-fuente de verdad.
+Estado: ejecutado y reconciliado en sombra DEV; no promovido como fuente de
+verdad. Ver [evidencia consolidada](phase-6-dev-evidence.md).
 
 ## Alcance
 

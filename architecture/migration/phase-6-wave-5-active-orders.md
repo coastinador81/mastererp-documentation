@@ -1,7 +1,8 @@
 # Fase 6 — oleada 5: Pedidos activos y reservas
 
-Estado: candidato local completo para `PENDING`, `CONFIRMED` y `PREPARING`; no
-ejecutado contra DEV ni promovido como fuente de verdad.
+Estado: `PENDING`, `CONFIRMED` y `PREPARING` ejecutados y reconciliados en
+sombra DEV; no promovidos como fuente de verdad. Ver
+[evidencia consolidada](phase-6-dev-evidence.md).
 
 ## Regla de inventario
 
