@@ -8,6 +8,7 @@ Cierres: [Fase 3](phase-3-closure.md), [Fase 4](phase-4-closure.md) y
 [Fase 5](phase-5-closure.md).
 
 Trabajo actual: [Fase 6 — datos y convivencia](phase-6-progress.md).
+Preflight siguiente: [Fase 7 — infraestructura DEV](phase-7-preflight.md).
 Primera oleada: [Categorías y Productos](phase-6-wave-1-catalog.md).
 Segunda oleada: [Nodos e Inventario](phase-6-wave-2-nodes-inventory.md).
 Tercera oleada: [Repartidores](phase-6-wave-3-drivers.md).
