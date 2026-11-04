@@ -3,11 +3,12 @@
 Estado: implementación local completa. Promoción DEV, reconciliación real y
 cutover pendientes de autorización operativa.
 
-Actualización 2026-11-04: la ejecución DEV fue solicitada, pero los perfiles
-AWS locales `andrea` (Tumandaito) y `uonify-dev` (MasterERP) devolvieron
-`InvalidClientTokenId` al consultar identidad. La carga sigue bloqueada hasta
-renovar acceso de solo lectura/escritura aprobado y registrar UUID reales de
-tenant, empresa, actor y sucursales destino; los valores de
+Actualización 2026-11-04: `andrea_madriz` verificó en modo lectura el origen:
+cuenta `941751053509`, tabla `tumandaito-dev-core` activa en `us-west-2`. Esa
+misma cuenta no contiene `mastererp-dev-data` ni una RDS visible en
+`us-west-1`; el destino se documenta históricamente en otra cuenta. La carga
+sigue bloqueada hasta tener acceso aprobado al destino y registrar UUID reales
+de tenant, empresa, actor y sucursales destino; los valores de
 `config.example.json` no son datos desplegables.
 
 ## Capacidades cubiertas
