@@ -7,7 +7,8 @@ Actualización 2026-11-04: se verificaron las cuentas separadas de origen y
 destino, se crearon respaldos, se cargó la sombra DEV mediante el migrador
 oficial y se reconcilió mediante inspección de solo lectura. Los nueve dominios
 comparados coincidieron sin faltantes ni inesperados. Ver
-[evidencia DEV](phase-6-dev-evidence.md).
+[evidencia DEV](phase-6-dev-evidence.md) y la
+[guía de verificación reproducible](phase-6-verification.md).
 
 ## Capacidades cubiertas
 
