@@ -1,7 +1,7 @@
 # Fase 6 — datos y convivencia
 
-Estado: en curso. Estrategia elegida y herramientas offline implementadas; carga
-real, reconciliación con DEV y cutover todavía no autorizados.
+Estado: implementación local completa. Carga real, reconciliación con DEV y
+cutover todavía no autorizados.
 
 ## Estrategia de convivencia elegida
 
@@ -68,6 +68,15 @@ consumo de stock.
 La sexta oleada reconstruye Pedidos preparados, en ruta, entregados y cancelados
 sin alterar el saldo final de Inventario. Evidencia en
 [phase-6-wave-6-historical-orders.md](phase-6-wave-6-historical-orders.md).
+
+La séptima oleada migra Rutas y coordina Pedidos/Repartidores sin fusionar sus
+límites. Evidencia en [phase-6-wave-7-routes.md](phase-6-wave-7-routes.md).
+
+La octava oleada migra configuración Storefront sin copiar Catálogo/Inventario.
+Evidencia en [phase-6-wave-8-storefront.md](phase-6-wave-8-storefront.md).
+
+El cierre de ingeniería y las puertas operativas están en
+[phase-6-closure.md](phase-6-closure.md).
 
 ## Mapeos obligatorios
 
