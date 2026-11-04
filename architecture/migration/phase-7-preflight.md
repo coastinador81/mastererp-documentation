@@ -1,7 +1,8 @@
 # Fase 7 — preflight de infraestructura DEV
 
-Estado: preflight AWS en curso. Cuenta, región, inventario y propiedad única
-confirmados; la revisión de change sets y el despliegue continúan pendientes.
+Estado: preflight AWS y change sets completados. Cuenta, región, inventario,
+propiedad única y cuatro planes exclusivamente aditivos confirmados; el
+despliegue continúa pendiente.
 Fase 6 cerró la carga y reconciliación de datos en sombra; el cutover ocurre
 después de integrar y probar infraestructura.
 
@@ -43,6 +44,6 @@ El inventario actual, drift y límites de los próximos change sets están en
 5. Solo tras aprobación explícita, ejecutar el change set y conservar el plan
    de rollback compatible con el stack existente.
 
-Las casillas 7-region y 7-owner tienen evidencia propia. 7-change y 7-deploy
-continúan sin marcar hasta preparar, revisar y ejecutar planes seguros. La
+Las casillas 7-region, 7-owner y 7-change tienen evidencia propia. 7-deploy
+continúa sin marcar hasta ejecutar y probar los planes de forma controlada. La
 fuente de verdad de Tu Mandadito no cambia.

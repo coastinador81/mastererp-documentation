@@ -60,3 +60,29 @@ rutas se conservan.
 Los próximos candidatos son Catálogo, Operaciones, Transporte y Storefront.
 Antes del despliegue deben pasar validación CloudFormation, revisión de permisos,
 smoke autenticado y comprobación de aislamiento tenant/empresa.
+
+## Change sets preparados
+
+Código empaquetado desde Platform `2bb8e1449c4dfb55272b9b1ec46f503ce3613bf8`;
+composición y preparador desde Infrastructure
+`47b5afae80934e3c475af2b7a1b95b231d3246cd`. Los doce ZIP incluyen binarios
+`psycopg` para Python 3.12 arm64 y fueron publicados en el bucket privado con
+claves que contienen commit, módulo y SHA-256.
+
+| Stack nuevo | Change set | Revisión |
+| --- | --- | --- |
+| `mastererp-dev-catalog` | `phase7-catalog-47b5afae8093` | 55 Add |
+| `mastererp-dev-operations` | `phase7-operations-47b5afae8093` | 39 Add |
+| `mastererp-dev-transport` | `phase7-transport-47b5afae8093` | 10 Add |
+| `mastererp-dev-digital-sales` | `phase7-digital-sales-47b5afae8093` | 12 Add |
+
+Los cuatro planes finalizaron `CREATE_COMPLETE`: 116 `Add`, ningún `Modify`,
+`Remove` o reemplazo. Storefront conecta su ruta pública a Client API mediante
+una integración separada; las operaciones administrativas usan Admin API con
+el authorizer JWT compartido. Los change sets permanecen sin ejecutar.
+
+El preparador publicado no implementa `execute-change-set`. Antes de ejecutar
+cada plan se debe conservar su registro, observar el stack hasta estabilizar,
+verificar Lambdas y rutas exactas y realizar smoke autenticado. Si falla la
+creación de un stack nuevo, permitir el rollback de CloudFormation, inspeccionar
+eventos y no reintentar ampliando permisos.
