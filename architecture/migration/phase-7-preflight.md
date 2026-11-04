@@ -1,7 +1,8 @@
 # Fase 7 — preflight de infraestructura DEV
 
-Estado: preflight local completado el 2026-11-04. No consulta AWS, no crea
-change sets y no autoriza despliegues.
+Estado: nota de preparación local, diferida. La Fase 7 no inicia hasta cerrar
+la Fase 6 mediante la ejecución DEV, reconciliación y cutover autorizados. No
+consulta AWS, no crea change sets y no autoriza despliegues.
 
 ## Evidencia local
 
