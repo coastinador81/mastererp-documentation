@@ -38,7 +38,31 @@ Smokes efectivos:
   Tumandaito volvió a HTTP 403.
 
 Esto prueba Cognito, ambos authorizers, API Gateway, Lambda y el contrato SQL sin
-contaminar datos de negocio. El checkout canónico sigue pendiente.
+contaminar datos de negocio. El checkout canónico se acreditó posteriormente,
+como registra la sección siguiente.
+
+## Checkout Storefront canónico
+
+El 2026-11-05 se aplicó la migración 040 con preflight, dos pasadas del modelo y
+la batería SQL aprobada. El change set
+`phase8-storefront-checkout-20261105` agregó únicamente la ruta
+`POST /v1/storefront/checkout` y actualizó Lambda/integraciones sin reemplazos.
+La ruta rechaza solicitudes sin JWT con 401. El API Client autoriza en DEV el
+origen de la tienda y solo GET/POST/OPTIONS con headers canónicos.
+
+El Storefront MasterERP se publicó aditivamente en
+`/mastererp-phase8-candidate/`; no se reemplazó la raíz legacy, no hubo DNS ni
+cutover. Un navegador real completó Cognito Authorization Code + PKCE, reclamó
+una invitación de un solo uso y creó el pedido `ORD-A5A55BB18CB6` (USD 6,50).
+RDS confirmó invitación `CLAIMED`, pedido `PENDING` y reserva de Inventario
+`ACTIVE`, con una unidad del producto canónico. La reclamación repetida devolvió
+200 con `replayed=true` y no creó otro pedido.
+
+La identidad QA volvió a `email_verified=false`, no recibió membresía de tenant
+y el helper temporal de fixture fue retirado del migrador. El smoke posterior
+aprobó las 14 comprobaciones de lectura, aislamiento y limpieza. El único 404
+observado por el navegador fue el `favicon.ico` del dominio administrado de
+Cognito; Storefront y sus APIs no produjeron errores.
 
 ## Smoke autenticado
 
@@ -154,4 +178,5 @@ valores funcionales la configuración vigente de una Tienda, un Repartidor y un
 Nodo. Los tres comandos recorrieron formulario Uonify → API autorizada → RDS y
 respondieron HTTP 200; versiones y auditoría avanzaron como en una escritura
 real. La membresía QA volvió a retirarse. Esto acredita escritura administrativa
-y de Transporte, pero no reemplaza la prueba pendiente de checkout Storefront.
+y de Transporte; la prueba separada de checkout Storefront quedó aprobada en la
+promoción aditiva descrita arriba.

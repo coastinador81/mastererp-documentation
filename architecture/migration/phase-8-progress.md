@@ -42,6 +42,12 @@ Evidencia: [phase-8-dev-evidence.md](phase-8-dev-evidence.md).
 
 ## Dependencias que impiden declarar cutover
 
+El checkout Storefront → Inventario → Pedidos fue promovido aditivamente y
+aprobó E2E en DEV con Cognito Storefront e invitación explícita. Resuelve
+tienda, cliente y precios en servidor, y crea reserva y pedido idempotentes en
+una transacción. El build se publicó solo bajo el prefijo candidato
+`/mastererp-phase8-candidate/`; la raíz legacy no fue reemplazada.
+
 El inventario del 2026-11-05 encontró consumidores activos que aún usan los
 contratos, Cognito y endpoints legacy de Tu Mandadito en `us-west-2`:
 
@@ -58,10 +64,9 @@ recursos en este estado sería incorrecto.
 
 ## Orden restante para el corte vertical
 
-1. Implementar checkout conectado con Inventario y Pedidos canónicos; la
-   transición Cognito y el aprovisionamiento explícito de identidad ya están
-   desplegados y probados.
-2. Probar checkout Storefront; Admin y Repartidores ya aprobaron escrituras
+1. Checkout canónico promovido y probado en DEV; conservar el candidato sin
+   conmutar la raíz hasta la autorización de cutover.
+2. Admin, Storefront y Repartidores ya aprobaron escrituras
    no-op auditadas y las lecturas de todos los módulos pasaron en navegador.
 3. Repetir el export de delta dentro de la pausa final de escrituras; el ensayo
    previo ya produjo diferencia cero.
