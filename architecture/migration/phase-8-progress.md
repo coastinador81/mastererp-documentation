@@ -13,6 +13,8 @@ en DEV; cutover todavía no autorizado ni ejecutado.
 - Delta del origen comprobado en cero mediante export consistente y SHA-256.
 - Backup previo a Fase 8 restaurado y comparado en una tabla aislada: 296
   registros idénticos; tabla temporal eliminada y backup conservado.
+- Uonify matriz publicado con Productos y Pedidos inyectados desde sus mismos
+  componentes; E2E real aprobó Cognito, contexto, 27 Productos y 9 Pedidos.
 
 Evidencia: [phase-8-dev-evidence.md](phase-8-dev-evidence.md).
 
@@ -34,8 +36,9 @@ recursos en este estado sería incorrecto.
 
 ## Orden restante para el corte vertical
 
-1. Implementar adapters de frontend por capacidad hacia contratos MasterERP y
-   resolver la transición de identidad Cognito sin vincular por email.
+1. Completar la inyección en Uonify de Categorías, Inventario, Nodos,
+   Preparación, Rutas y Repartidores; Productos y Pedidos ya están integrados.
+   Resolver además la transición de identidad Storefront sin vincular por email.
 2. Probar lecturas y escrituras E2E de Admin, Storefront y Repartidores.
 3. Repetir el export de delta dentro de la pausa final de escrituras; el ensayo
    previo ya produjo diferencia cero.

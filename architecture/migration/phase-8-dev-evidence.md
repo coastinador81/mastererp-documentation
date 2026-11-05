@@ -64,3 +64,30 @@ del ensayo; el backup permanece recuperable.
 Esta prueba acredita recuperación de los datos DynamoDB. Aún falta ensayar la
 conmutación de tráfico de los canales y ejecutar escrituras E2E antes de marcar
 completa la puerta conjunta de pruebas/datos/rollback.
+
+## Uonify: primer recorrido modular integrado
+
+El 2026-11-05 se publicó en `app-dev.uonify.com` el app-shell matriz con
+Productos y Pedidos mediante composición de código fuente, sin iframe ni copia
+de pantallas. Ambos conservan su build independiente y comparten el mismo
+componente con Uonify. El menú exige módulo y permiso; cada petición vuelve a
+ser autorizada por API/PostgreSQL.
+
+El preflight de navegador detectó que el API Admin permitía únicamente el
+header financiero `x-mastererp-tenant-id`, mientras las APIs canónicas usan
+`x-tenant-id`. CloudFormation modificó solo `CorsConfiguration` de
+`AdminHttpApi`, sin reemplazo. Se conservaron los identificadores del API y sus
+recursos. El preflight real devuelve 204 y autoriza ambos headers únicamente
+para los orígenes existentes.
+
+`scripts/validate_phase8_uonify.cjs` ejecutó navegador real con Chrome y una
+membresía QA sintética temporal. Resultado aprobado:
+
+- login Cognito y contexto Tumandaito;
+- Productos visible y 27 registros obtenidos por HTTP 200;
+- Pedidos visible y 9 registros obtenidos por HTTP 200;
+- navegación dentro de `app-dev.uonify.com`, sin errores de navegador;
+- membresía temporal retirada al finalizar.
+
+Esta evidencia valida el patrón de inyección y el primer recorrido, no acredita
+todavía los módulos restantes ni escrituras desde navegador.
