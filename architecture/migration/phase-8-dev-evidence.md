@@ -110,3 +110,10 @@ Todos se abrieron desde `app-dev.uonify.com`, con Cognito y contexto compartido,
 sin iframe y sin errores de navegador. La membresía QA temporal se retiró en
 cada ejecución. Esta evidencia acredita lecturas; las escrituras reversibles y
 el checkout autenticado siguen siendo puertas separadas.
+
+El mismo runner, activado explícitamente en modo escritura, guardó sin cambiar
+valores funcionales la configuración vigente de una Tienda, un Repartidor y un
+Nodo. Los tres comandos recorrieron formulario Uonify → API autorizada → RDS y
+respondieron HTTP 200; versiones y auditoría avanzaron como en una escritura
+real. La membresía QA volvió a retirarse. Esto acredita escritura administrativa
+y de Transporte, pero no reemplaza la prueba pendiente de checkout Storefront.

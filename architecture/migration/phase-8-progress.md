@@ -17,6 +17,8 @@ en DEV; cutover todavía no autorizado ni ejecutado.
   Preparación, Rutas, Repartidores y Tiendas inyectados sin iframe. El E2E real
   aprobó Cognito, contexto, todas las lecturas canónicas y cero errores de
   navegador.
+- Escrituras UI → API → RDS aprobadas en DEV para Tiendas, Repartidores y Nodos
+  mediante guardados no-op auditados, sin cambiar valores funcionales.
 
 Evidencia: [phase-8-dev-evidence.md](phase-8-dev-evidence.md).
 
@@ -40,8 +42,8 @@ recursos en este estado sería incorrecto.
 
 1. Resolver la transición de identidad Storefront sin vincular automáticamente
    por email y conectar checkout con Pedidos canónicos.
-2. Probar escrituras E2E reversibles de Admin, Storefront y Repartidores; las
-   lecturas de todos los módulos ya fueron aprobadas en navegador real.
+2. Probar checkout Storefront; Admin y Repartidores ya aprobaron escrituras
+   no-op auditadas y las lecturas de todos los módulos pasaron en navegador.
 3. Repetir el export de delta dentro de la pausa final de escrituras; el ensayo
    previo ya produjo diferencia cero.
 4. Ensayar rollback de tráfico; la restauración de datos ya fue aprobada.
