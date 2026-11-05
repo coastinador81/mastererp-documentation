@@ -1,7 +1,7 @@
 # Fase 8 — cierre de capacidad
 
-Estado: en curso. Contratos de lectura, autorización y aislamiento confirmados
-en DEV; cutover todavía no autorizado ni ejecutado.
+Estado: en curso. Cutover y ventana de observación aprobados en DEV; aún falta
+retirar la doble escritura legacy antes de declarar MasterERP fuente de verdad.
 
 ## Decisiones de producto confirmadas
 
@@ -75,7 +75,12 @@ recursos en este estado sería incorrecto.
    se sirvieron con sus hashes exactos, sin tocar la raíz ni DNS.
 5. Autorización explícita recibida y cutover aplicado sin cambios DNS; índice
    y assets públicos verificados con hash exacto y HTTP 200.
-6. Observar la ventana acordada; solo después retirar Lambdas, APIs, tablas y
-   código legacy sin consumidores.
+6. Ventana de observación aprobada durante 15 minutos después del checkout real:
+   cero 4xx nuevos, 5xx, errores o throttling; Pedido y Reserva consistentes.
+7. Retirar la doble escritura y, solo con cero consumidores, retirar Lambdas,
+   APIs, tablas y código legacy.
+
+La recuperación visual de TuMandadito queda explícitamente fuera de esta fase y
+se abordará después de terminar la migración técnica.
 
 La regla de archivos menores de 500 líneas se mantiene para todos los cambios.

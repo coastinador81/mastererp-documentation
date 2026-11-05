@@ -155,6 +155,21 @@ el candidato mediante SHA-256
 JavaScript, CSS y `/#/chat` respondieron HTTP 200. No se cambió DNS ni se
 eliminaron recursos legacy.
 
+## Ventana de observación posterior al cutover
+
+La identidad real `andrea.madriz@eticayservicios.com` reclamó la invitación de
+un solo uso y creó el pedido `ORD-3695A0984CD7`. RDS confirmó estado
+`CONFIRMED`, total USD 5,20, una línea y reserva de Inventario
+`904aeef8-2b97-42a4-bd52-0f6e870e22d6` en estado `ACTIVE`.
+
+Durante los 15 minutos posteriores se tomaron muestras de API Gateway y
+CloudWatch. Después de la reclamación hubo cero 4xx nuevos, cero 5xx, cero
+errores y cero throttling en Ecommerce; Inventario y Pedidos también reportaron
+cero errores. No se observaron pedidos parciales ni reservas huérfanas.
+
+La revisión y recuperación visual de TuMandadito fue diferida por decisión de
+producto hasta después de finalizar la migración técnica.
+
 ## Uonify: recorrido modular integrado
 
 El 2026-11-05 se publicó en `app-dev.uonify.com` el app-shell matriz con
