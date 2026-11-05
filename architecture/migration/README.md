@@ -1,14 +1,14 @@
 # Migración de Tu Mandadito a MasterERP
 
-Estado: Fase 0 completada; Fase 1 lista para iniciar.
+Estado: Fase 7 cerrada; Fase 8 en curso, sin cutover todavía.
 
 Este directorio conserva el plan, las decisiones y la evidencia de la migración gradual de Tu Mandadito hacia MasterERP. El [tablero de seguimiento](index.html) ofrece el checklist local; este documento define los acuerdos versionados.
 
 Cierres: [Fase 3](phase-3-closure.md), [Fase 4](phase-4-closure.md) y
 [Fase 5](phase-5-closure.md).
 
-Trabajo actual: [Fase 7 — infraestructura y DEV](phase-7-preflight.md).
-Preflight siguiente: [Fase 7 — infraestructura DEV](phase-7-preflight.md).
+Trabajo actual: [Fase 8 — cierre de capacidad](phase-8-progress.md).
+Evidencia DEV actual: [smoke autenticado de Fase 8](phase-8-dev-evidence.md).
 Primera oleada: [Categorías y Productos](phase-6-wave-1-catalog.md).
 Segunda oleada: [Nodos e Inventario](phase-6-wave-2-nodes-inventory.md).
 Tercera oleada: [Repartidores](phase-6-wave-3-drivers.md).
