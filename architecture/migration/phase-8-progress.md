@@ -27,6 +27,16 @@ en DEV; cutover todavía no autorizado ni ejecutado.
   navegador.
 - Escrituras UI → API → RDS aprobadas en DEV para Tiendas, Repartidores y Nodos
   mediante guardados no-op auditados, sin cambiar valores funcionales.
+- Cliente Cognito Storefront exclusivo desplegado con Authorization Code + PKCE,
+  reautenticación obligatoria y tokens de 15 minutos.
+- Identidad de cliente explícita desplegada en RDS y API: invitación de un solo
+  uso almacenada solo como SHA-256, reclamación por `issuer + sub`, correo
+  verificado usado únicamente como perfil y sin membresía administrativa.
+- Authorizer y rutas Storefront desplegados sin reemplazar Lambda, APIs,
+  integraciones ni datos. Los smokes reales aprobaron catálogo público 200,
+  rechazo sin JWT 401, autorización administrativa hasta RDS y ID token
+  Storefront verificado hasta RDS; los casos sintéticos terminaron en 404 sin
+  crear filas de negocio y el acceso QA fue retirado.
 
 Evidencia: [phase-8-dev-evidence.md](phase-8-dev-evidence.md).
 
@@ -48,8 +58,9 @@ recursos en este estado sería incorrecto.
 
 ## Orden restante para el corte vertical
 
-1. Implementar la transición confirmada a Cognito MasterERP, aprovisionamiento
-   explícito de identidad interna y checkout conectado con Pedidos canónicos.
+1. Implementar checkout conectado con Inventario y Pedidos canónicos; la
+   transición Cognito y el aprovisionamiento explícito de identidad ya están
+   desplegados y probados.
 2. Probar checkout Storefront; Admin y Repartidores ya aprobaron escrituras
    no-op auditadas y las lecturas de todos los módulos pasaron en navegador.
 3. Repetir el export de delta dentro de la pausa final de escrituras; el ensayo

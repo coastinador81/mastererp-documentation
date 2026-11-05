@@ -7,6 +7,39 @@ en una misma interfaz matriz. Storefront migra a Cognito MasterERP con nuevo
 inicio de sesión y sin vinculación automática por correo. Esta decisión define
 el trabajo restante; no acredita por sí sola checkout ni cutover.
 
+## Cognito e identidad de clientes Storefront
+
+El cliente `mastererp-dev-storefront-web` quedó desplegado en el pool MasterERP
+con Authorization Code + PKCE, sin secreto, callback exclusivo de
+`tienda-dev.tumandaito.com`, tokens de 15 minutos y refresh de un día. No se
+modificó el cliente Uonify ni se eliminó el chat.
+
+Database `406fe4c` aplicó el esquema 039 en RDS DEV con preflight, dos pasadas
+del modelo y 23 pruebas aprobadas; correlación
+`e558cf87-f801-4d0a-8d4b-c09e05b96302`. La invitación guarda únicamente el
+SHA-256 del secreto y la reclamación enlaza por `issuer + sub`; el correo es
+perfil verificado, nunca llave de coincidencia, y no se crea `user_tenants`.
+
+Platform `1f04243` e Infrastructure `3b7f2f0` añadieron el flujo HTTP. El change
+set `phase8-storefront-identity-1f04243` agregó un authorizer y dos rutas;
+Lambda e integraciones se actualizaron sin reemplazo. Solo se reemplazó el
+permiso invocable para ampliar su ARN desde catálogo a `/v1/storefront/*`.
+El stack finalizó `UPDATE_COMPLETE`.
+
+Smokes efectivos:
+
+- catálogo público: HTTP 200, 11 categorías y 17 productos disponibles;
+- reclamación sin JWT: HTTP 401;
+- invitación administrativa con cliente inexistente: HTTP 404 desde RDS, sin
+  crear invitación;
+- reclamación con ID token real del cliente Storefront y correo verificado,
+  pero invitación inexistente: HTTP 404 desde RDS, sin crear identidad;
+- el atributo QA temporal volvió a `email_verified=false` y su acceso al tenant
+  Tumandaito volvió a HTTP 403.
+
+Esto prueba Cognito, ambos authorizers, API Gateway, Lambda y el contrato SQL sin
+contaminar datos de negocio. El checkout canónico sigue pendiente.
+
 ## Smoke autenticado
 
 Se ejecutó `mastererp-infrastructure/scripts/verify_phase8_tumandaito.py`
