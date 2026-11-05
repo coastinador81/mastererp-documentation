@@ -10,6 +10,9 @@ en DEV; cutover todavía no autorizado ni ejecutado.
 - Aislamiento cruzado probado con 403.
 - Acceso QA temporal retirado y verificado.
 - Storefront público lee el catálogo canónico en DEV.
+- Delta del origen comprobado en cero mediante export consistente y SHA-256.
+- Backup previo a Fase 8 restaurado y comparado en una tabla aislada: 296
+  registros idénticos; tabla temporal eliminada y backup conservado.
 
 Evidencia: [phase-8-dev-evidence.md](phase-8-dev-evidence.md).
 
@@ -34,8 +37,9 @@ recursos en este estado sería incorrecto.
 1. Implementar adapters de frontend por capacidad hacia contratos MasterERP y
    resolver la transición de identidad Cognito sin vincular por email.
 2. Probar lecturas y escrituras E2E de Admin, Storefront y Repartidores.
-3. Ejecutar export/delta final con pausa de escrituras y reconciliación cero.
-4. Ensayar rollback devolviendo tráfico al origen y verificar integridad.
+3. Repetir el export de delta dentro de la pausa final de escrituras; el ensayo
+   previo ya produjo diferencia cero.
+4. Ensayar rollback de tráfico; la restauración de datos ya fue aprobada.
 5. Obtener autorización explícita del Product Owner y conmutar tráfico.
 6. Observar la ventana acordada; solo después retirar Lambdas, APIs, tablas y
    código legacy sin consumidores.

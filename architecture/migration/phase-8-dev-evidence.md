@@ -44,3 +44,23 @@ Esto confirma contratos de lectura, autenticación, autorización, aislamiento y
 paridad de conteos en sombra. No confirma delta final, escrituras end-to-end,
 conmutación de frontends, rollback operativo ni retiro de recursos legacy.
 Esos puntos siguen siendo puertas obligatorias antes del cutover.
+
+## Delta y restauración del origen
+
+El 2026-11-05 se repitió la exportación consistente de `T001` desde la cuenta
+origen `941751053509`, región `us-west-2`. Se seleccionaron 296 de 296 registros
+y el SHA-256 volvió a ser exactamente
+`6a6d9c5030bd7c63070a91876b9114b0d8d36553cddf8c15bc103589084a212d`.
+Por tanto, no existía delta desde la carga reconciliada de Fase 6 al momento de
+la comprobación.
+
+Se creó el backup
+`tumandaito-dev-core-before-mastererp-phase8-20261105`, estado `AVAILABLE`, ARN
+terminado en `backup/01793889299911-969f4647`. Se restauró en la tabla aislada
+`tumandaito-dev-core-phase8-rollback-drill-20261105`; el verificador leyó 296
+registros y confirmó el mismo SHA-256. La tabla temporal fue eliminada después
+del ensayo; el backup permanece recuperable.
+
+Esta prueba acredita recuperación de los datos DynamoDB. Aún falta ensayar la
+conmutación de tráfico de los canales y ejecutar escrituras E2E antes de marcar
+completa la puerta conjunta de pruebas/datos/rollback.
