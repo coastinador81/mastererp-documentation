@@ -80,6 +80,13 @@ recursos en este estado sería incorrecto.
 7. Retirar la doble escritura y, solo con cero consumidores, retirar Lambdas,
    APIs, tablas y código legacy.
 
+El creador legacy `POST /orders` fue conmutado de forma reversible a HTTP 410
+después de confirmar cero invocaciones desde el cutover. Las lecturas, la
+cancelación y el seguimiento histórico permanecen disponibles. El Storefront
+canónico continuó sirviendo catálogo HTTP 200. Falta repetir el delta firmado
+bajo pausa final; el primer intento no inició porque el control de aprobación
+AWS alcanzó su límite, por lo que ninguna concurrencia fue modificada.
+
 La recuperación visual de TuMandadito queda explícitamente fuera de esta fase y
 se abordará después de terminar la migración técnica.
 

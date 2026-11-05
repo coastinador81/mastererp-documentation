@@ -170,6 +170,21 @@ cero errores. No se observaron pedidos parciales ni reservas huérfanas.
 La revisión y recuperación visual de TuMandadito fue diferida por decisión de
 producto hasta después de finalizar la migración técnica.
 
+## Retiro de la creación legacy
+
+CloudWatch confirmó cero invocaciones posteriores al cutover en
+`tumandaito-client-dev-checkout` y `tumandaito-client-dev-orders`. La inspección
+del artefacto desplegado verificó que `/checkout/quote` y `/checkout/validate`
+son lecturas; el único creador legacy dentro del corte vertical era
+`POST /orders`.
+
+Su integración se conmutó de forma reversible de Lambda proxy a MOCK y se
+republicó el stage `dev`. El smoke devolvió HTTP 410 con
+`LEGACY_CHECKOUT_RETIRED`; el catálogo MasterERP permaneció HTTP 200 con 17
+productos. No se eliminaron rutas, Lambdas, datos ni permisos, y las operaciones
+históricas permanecen intactas. La plantilla SAM conserva el mismo guard para
+evitar que un despliegue posterior reactive la creación legacy.
+
 ## Uonify: recorrido modular integrado
 
 El 2026-11-05 se publicó en `app-dev.uonify.com` el app-shell matriz con
