@@ -76,13 +76,41 @@ claves que contienen commit, módulo y SHA-256.
 | `mastererp-dev-transport` | `phase7-transport-47b5afae8093` | 10 Add |
 | `mastererp-dev-digital-sales` | `phase7-digital-sales-47b5afae8093` | 12 Add |
 
-Los cuatro planes finalizaron `CREATE_COMPLETE`: 116 `Add`, ningún `Modify`,
-`Remove` o reemplazo. Storefront conecta su ruta pública a Client API mediante
-una integración separada; las operaciones administrativas usan Admin API con
-el authorizer JWT compartido. Los change sets permanecen sin ejecutar.
+Los cuatro planes iniciales finalizaron `CREATE_COMPLETE`: 116 `Add`, ningún
+`Modify`, `Remove` o reemplazo. Storefront conecta su ruta pública a Client API
+mediante una integración separada; las operaciones administrativas usan Admin
+API con el authorizer JWT compartido.
 
 El preparador publicado no implementa `execute-change-set`. Antes de ejecutar
 cada plan se debe conservar su registro, observar el stack hasta estabilizar,
 verificar Lambdas y rutas exactas y realizar smoke autenticado. Si falla la
 creación de un stack nuevo, permitir el rollback de CloudFormation, inspeccionar
 eventos y no reintentar ampliando permisos.
+
+## Resultado del despliegue
+
+El primer smoke de Catálogo detectó que los ZIP no incluían PyJWT, cryptography
+ni las claves públicas fijadas de Cognito. La secuencia se detuvo antes de
+Operaciones. Platform `b785d6c` corrigió el empaquetado reproducible y
+`b4fca28` corrigió el orden de validación identidad/tenant en cinco adaptadores.
+No se modificaron datos ni se ampliaron permisos.
+
+Los tres planes pendientes se regeneraron desde Platform
+`b4fca288ce4010006f3ae34a6e37eca3719eaaa4` e Infrastructure
+`d93249bd34c8f1dc944b59fa1a64da65ec1b3930`. Los placeholders eliminados
+estaban `REVIEW_IN_PROGRESS` y contenían cero recursos.
+
+| Stack | Estado | Recursos | Smoke técnico |
+| --- | --- | ---: | --- |
+| `mastererp-dev-catalog` | `CREATE_COMPLETE` | 55 | 6 Lambdas; sin JWT → 401 |
+| `mastererp-dev-operations` | `CREATE_COMPLETE` | 39 | 4 Lambdas; sin JWT → 401 |
+| `mastererp-dev-transport` | `CREATE_COMPLETE` | 10 | Repartidores; sin JWT → 401 |
+| `mastererp-dev-digital-sales` | `CREATE_COMPLETE` | 12 | Admin → 401; Storefront valida entrada |
+
+Los cuatro stacks quedaron `IN_SYNC`, sin recursos fallidos. HTTP real confirmó
+401 en Admin API. Client API expone `GET /v1/storefront/catalog` sin JWT; las
+cuatro rutas administrativas de tiendas conservan JWT `49et65`.
+
+Rollback: cada dominio es un stack nuevo e independiente. Ante fallo durante
+creación se permite rollback de CloudFormation y se preservan artefactos por
+commit/SHA. Una retirada posterior requiere change set y evidencia de Fase 8.
