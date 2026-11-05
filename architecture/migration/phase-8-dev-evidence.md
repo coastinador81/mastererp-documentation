@@ -2,6 +2,11 @@
 
 Fecha: 2026-11-05. Cuenta `277352717693`, región `us-west-1`.
 
+Decisión posterior del Product Owner: Uonify conserva Chat operativo y módulos
+en una misma interfaz matriz. Storefront migra a Cognito MasterERP con nuevo
+inicio de sesión y sin vinculación automática por correo. Esta decisión define
+el trabajo restante; no acredita por sí sola checkout ni cutover.
+
 ## Smoke autenticado
 
 Se ejecutó `mastererp-infrastructure/scripts/verify_phase8_tumandaito.py`

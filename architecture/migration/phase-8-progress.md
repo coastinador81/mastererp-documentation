@@ -3,6 +3,14 @@
 Estado: en curso. Contratos de lectura, autorización y aislamiento confirmados
 en DEV; cutover todavía no autorizado ni ejecutado.
 
+## Decisiones de producto confirmadas
+
+- `app-dev.uonify.com` es la interfaz matriz integrada. Inicio, módulos y chat
+  operativo coexisten; el chat se conserva en `/#/chat` y no se elimina.
+- Los clientes Storefront migran al Cognito de MasterERP y deberán iniciar
+  sesión nuevamente. La identidad se vincula solo por `issuer + sub`; queda
+  prohibido asociar automáticamente cuentas por coincidencia de correo.
+
 ## Completado
 
 - APIs canónicas desplegadas y smoke autenticado sobre el tenant Tumandaito.
@@ -40,8 +48,8 @@ recursos en este estado sería incorrecto.
 
 ## Orden restante para el corte vertical
 
-1. Resolver la transición de identidad Storefront sin vincular automáticamente
-   por email y conectar checkout con Pedidos canónicos.
+1. Implementar la transición confirmada a Cognito MasterERP, aprovisionamiento
+   explícito de identidad interna y checkout conectado con Pedidos canónicos.
 2. Probar checkout Storefront; Admin y Repartidores ya aprobaron escrituras
    no-op auditadas y las lecturas de todos los módulos pasaron en navegador.
 3. Repetir el export de delta dentro de la pausa final de escrituras; el ensayo
