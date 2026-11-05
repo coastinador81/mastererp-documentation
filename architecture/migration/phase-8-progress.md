@@ -68,9 +68,10 @@ recursos en este estado sería incorrecto.
    conmutar la raíz hasta la autorización de cutover.
 2. Admin, Storefront y Repartidores ya aprobaron escrituras
    no-op auditadas y las lecturas de todos los módulos pasaron en navegador.
-3. Repetir el export de delta dentro de la pausa final de escrituras; el ensayo
-   previo ya produjo diferencia cero.
-4. Ensayar rollback de tráfico; la restauración de datos ya fue aprobada.
+3. Delta final aprobado dentro de una pausa controlada: 296 de 296 registros y
+   SHA-256 idéntico al snapshot firmado; 36 concurrencias restauradas.
+4. Rollback de tráfico ensayado sobre el prefijo candidato: legacy y candidato
+   se sirvieron con sus hashes exactos, sin tocar la raíz ni DNS.
 5. Obtener autorización explícita del Product Owner y conmutar tráfico.
 6. Observar la ventana acordada; solo después retirar Lambdas, APIs, tablas y
    código legacy sin consumidores.

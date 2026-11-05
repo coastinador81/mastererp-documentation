@@ -102,10 +102,10 @@ completo aprobó. No se modificaron datos de negocio ni membresías reales.
 
 ## Límite de la evidencia
 
-Esto confirma contratos de lectura, autenticación, autorización, aislamiento y
-paridad de conteos en sombra. No confirma delta final, escrituras end-to-end,
-conmutación de frontends, rollback operativo ni retiro de recursos legacy.
-Esos puntos siguen siendo puertas obligatorias antes del cutover.
+Esto confirma contratos de lectura, autenticación, autorización, aislamiento,
+paridad de conteos y, con las comprobaciones posteriores, checkout E2E, delta
+final y mecanismo de rollback de tráfico. No confirma cutover real, ventana de
+observación ni retiro de recursos legacy; requieren autorización explícita.
 
 ## Delta y restauración del origen
 
@@ -123,9 +123,25 @@ terminado en `backup/01793889299911-969f4647`. Se restauró en la tabla aislada
 registros y confirmó el mismo SHA-256. La tabla temporal fue eliminada después
 del ensayo; el backup permanece recuperable.
 
-Esta prueba acredita recuperación de los datos DynamoDB. Aún falta ensayar la
-conmutación de tráfico de los canales y ejecutar escrituras E2E antes de marcar
-completa la puerta conjunta de pruebas/datos/rollback.
+Esta prueba acredita recuperación de los datos DynamoDB. El checkout E2E y el
+ensayo aislado de rollback de tráfico se aprobaron posteriormente.
+
+## Delta final y rollback de tráfico
+
+El cierre repitió el exportador determinista durante una pausa controlada de
+los 36 consumidores Lambda que referencian `tumandaito-dev-core`. El export
+consistente seleccionó 296 de 296 registros de `T001` y produjo exactamente el
+SHA-256 firmado
+`6a6d9c5030bd7c63070a91876b9114b0d8d36553cddf8c15bc103589084a212d`.
+Todas las concurrencias fueron restauradas a sus valores previos y verificadas.
+
+El rollback de tráfico se ensayó sin cutover sobre
+`/mastererp-phase8-candidate/index.html`: se sirvió temporalmente el índice
+legacy y se confirmó su SHA-256
+`06001961069a364966d275c80ac74b28f6cd9cd6e17a893dc5a5be1a1f124d7d`;
+luego se restauró el candidato y se confirmó su SHA-256
+`d18fd0ceeb5147160525bc2163d8e5c203f77f58a1dcf59bff8d1c6f2ad9647c`.
+La raíz legacy permaneció HTTP 200 y no hubo cambios de DNS.
 
 ## Uonify: recorrido modular integrado
 
