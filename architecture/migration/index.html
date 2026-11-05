@@ -15,7 +15,7 @@
   <section class="summary">
     <article class="card"><small>Progreso total</small><strong id="percent">0%</strong><div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar"></div></div></article>
     <article class="card"><small>Tareas listas</small><strong><span id="done">0</span>/<span id="total">0</span></strong></article>
-    <article class="card"><small>Fase actual</small><strong>4 · Migración</strong></article>
+    <article class="card"><small>Estado</small><strong>Migración técnica lista</strong></article>
   </section>
   <div class="toolbar"><div><h2>Fases y entregables</h2><p class="desc">Los cambios se guardan automáticamente en este navegador.</p></div><button class="reset" type="button">Reiniciar checklist</button></div>
   <section class="phases">
@@ -53,11 +53,11 @@
     <article class="phase" data-phase="7"><header><div class="num">7</div><div><h3>Infraestructura y DEV</h3><p class="desc">Integrar recursos tras validar código y contratos.</p></div><span class="status">Lista</span></header><ul class="list">
       <li><label><input type="checkbox" data-id="7-region" checked><span>Confirmar cuenta, región y recursos.</span></label></li><li><label><input type="checkbox" data-id="7-owner" checked><span>Validar propiedad única.</span></label></li><li><label><input type="checkbox" data-id="7-change" checked><span>Revisar change sets sin reemplazos.</span></label></li><li><label><input type="checkbox" data-id="7-deploy" checked><span>Desplegar con autorización y rollback.</span></label></li>
     </ul></article>
-    <article class="phase current" data-phase="8"><header><div class="num">8</div><div><h3>Cierre de capacidad</h3><p class="desc">Retirar dependencias anteriores solo con evidencia.</p></div><span class="status">En curso</span></header><ul class="list">
-      <li><label><input type="checkbox" data-id="8-contract" checked><span>Confirmar contrato, autorización y aislamiento.</span></label></li><li><label><input type="checkbox" data-id="8-evidence"><span>Confirmar pruebas, datos y rollback.</span></label></li><li><label><input type="checkbox" data-id="8-truth"><span>Formalizar MasterERP como fuente de verdad.</span></label></li><li><label><input type="checkbox" data-id="8-retire"><span>Retirar código y recursos anteriores.</span></label></li>
+    <article class="phase complete" data-phase="8"><header><div class="num">8</div><div><h3>Cierre de capacidad</h3><p class="desc">Corte técnico completado con evidencia y retiro reversible de escritores legacy.</p></div><span class="status">Lista</span></header><ul class="list">
+      <li><label><input type="checkbox" data-id="8-contract" checked><span>Confirmar contrato, autorización y aislamiento.</span></label></li><li><label><input type="checkbox" data-id="8-evidence" checked><span>Confirmar pruebas, datos, observación y rollback.</span></label></li><li><label><input type="checkbox" data-id="8-truth" checked><span>Formalizar MasterERP como fuente de verdad para Storefront → Inventario → Pedidos.</span></label></li><li><label><input type="checkbox" data-id="8-consumers" checked><span>Clasificar las 36 Lambdas vinculadas a DynamoDB legacy.</span></label></li><li><label><input type="checkbox" data-id="8-retire" checked><span>Bloquear escritores legacy y rutas mutantes sin eliminar recursos.</span></label></li><li><label><input type="checkbox" data-id="8-delta" checked><span>Ejecutar el delta final firmado durante una pausa reversible de escrituras.</span></label></li>
     </ul></article>
   </section>
-  <aside class="note"><strong>Importante:</strong> marcar una tarea documenta avance; no autoriza commits, push, SQL, despliegues, DNS ni eliminación de recursos.</aside>
+  <aside class="note"><strong>Post-cierre:</strong> la eliminación física de recursos legacy requiere autorización separada y no bloquea el cierre técnico. La recuperación visual de TuMandadito corresponde a una fase posterior.</aside>
   <footer>MasterERP · Checklist local de migración · Rama dev</footer>
 </main>
 <script>
