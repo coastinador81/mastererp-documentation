@@ -143,6 +143,18 @@ luego se restauró el candidato y se confirmó su SHA-256
 `d18fd0ceeb5147160525bc2163d8e5c203f77f58a1dcf59bff8d1c6f2ad9647c`.
 La raíz legacy permaneció HTTP 200 y no hubo cambios de DNS.
 
+## Cutover DEV autorizado
+
+Con autorización explícita, el índice legacy se respaldó en
+`mastererp-phase8-rollback/index-pre-cutover-20261105.html` y el índice
+candidato se promovió a la raíz de `tmi-dev-client`. La invalidación
+`I2504DQPRVP400LUPXXZ9QAIWG` de la distribución `E2PLU72V9YKM01` terminó
+correctamente. El índice servido por `tienda-dev.tumandaito.com` coincidió con
+el candidato mediante SHA-256
+`d18fd0ceeb5147160525bc2163d8e5c203f77f58a1dcf59bff8d1c6f2ad9647c`;
+JavaScript, CSS y `/#/chat` respondieron HTTP 200. No se cambió DNS ni se
+eliminaron recursos legacy.
+
 ## Uonify: recorrido modular integrado
 
 El 2026-11-05 se publicó en `app-dev.uonify.com` el app-shell matriz con

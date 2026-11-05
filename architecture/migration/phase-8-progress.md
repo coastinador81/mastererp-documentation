@@ -45,8 +45,9 @@ Evidencia: [phase-8-dev-evidence.md](phase-8-dev-evidence.md).
 El checkout Storefront → Inventario → Pedidos fue promovido aditivamente y
 aprobó E2E en DEV con Cognito Storefront e invitación explícita. Resuelve
 tienda, cliente y precios en servidor, y crea reserva y pedido idempotentes en
-una transacción. El build se publicó solo bajo el prefijo candidato
-`/mastererp-phase8-candidate/`; la raíz legacy no fue reemplazada.
+una transacción. Tras autorización explícita, el índice candidato fue
+promovido a la raíz DEV; sus assets permanecen bajo
+`/mastererp-phase8-candidate/` para permitir rollback inmediato.
 
 El inventario del 2026-11-05 encontró consumidores activos que aún usan los
 contratos, Cognito y endpoints legacy de Tu Mandadito en `us-west-2`:
@@ -64,15 +65,16 @@ recursos en este estado sería incorrecto.
 
 ## Orden restante para el corte vertical
 
-1. Checkout canónico promovido y probado en DEV; conservar el candidato sin
-   conmutar la raíz hasta la autorización de cutover.
+1. Checkout canónico promovido, probado y con tráfico DEV conmutado; el índice
+   previo permanece respaldado en `mastererp-phase8-rollback/`.
 2. Admin, Storefront y Repartidores ya aprobaron escrituras
    no-op auditadas y las lecturas de todos los módulos pasaron en navegador.
 3. Delta final aprobado dentro de una pausa controlada: 296 de 296 registros y
    SHA-256 idéntico al snapshot firmado; 36 concurrencias restauradas.
 4. Rollback de tráfico ensayado sobre el prefijo candidato: legacy y candidato
    se sirvieron con sus hashes exactos, sin tocar la raíz ni DNS.
-5. Obtener autorización explícita del Product Owner y conmutar tráfico.
+5. Autorización explícita recibida y cutover aplicado sin cambios DNS; índice
+   y assets públicos verificados con hash exacto y HTTP 200.
 6. Observar la ventana acordada; solo después retirar Lambdas, APIs, tablas y
    código legacy sin consumidores.
 
