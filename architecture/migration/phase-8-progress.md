@@ -1,7 +1,8 @@
 # Fase 8 — cierre de capacidad
 
-Estado: en curso. Cutover y ventana de observación aprobados en DEV; aún falta
-retirar la doble escritura legacy antes de declarar MasterERP fuente de verdad.
+Estado: cierre técnico aprobado en DEV. MasterERP es la fuente de verdad del
+checkout Storefront → Inventario → Pedidos. El retiro físico de recursos legacy
+queda pendiente de autorización separada.
 
 ## Decisiones de producto confirmadas
 
@@ -40,7 +41,7 @@ retirar la doble escritura legacy antes de declarar MasterERP fuente de verdad.
 
 Evidencia: [phase-8-dev-evidence.md](phase-8-dev-evidence.md).
 
-## Dependencias que impiden declarar cutover
+## Cierre del cutover
 
 El checkout Storefront → Inventario → Pedidos fue promovido aditivamente y
 aprobó E2E en DEV con Cognito Storefront e invitación explícita. Resuelve
@@ -49,21 +50,14 @@ una transacción. Tras autorización explícita, el índice candidato fue
 promovido a la raíz DEV; sus assets permanecen bajo
 `/mastererp-phase8-candidate/` para permitir rollback inmediato.
 
-El inventario del 2026-11-05 encontró consumidores activos que aún usan los
-contratos, Cognito y endpoints legacy de Tu Mandadito en `us-west-2`:
+Las 36 Lambdas que referencian `tumandaito-dev-core` fueron clasificadas por
+ruta, artefacto desplegado y tráfico. Once funciones tenían escritura dentro
+del corte: ocho handlers administrativos quedaron con concurrencia 0, cinco
+rutas mutantes Client quedaron en MOCK 410 preservando sus GET, y el stream del
+proyector de pedidos quedó deshabilitado. Las demás son lectores o pertenecen a
+dominios fuera de esta capacidad.
 
-- Admin conserva clientes para `/catalog`, `/inventory`, `/operations`, nodos,
-  rutas, preparación y repartidores del API anterior.
-- Customer/Storefront conserva `EXPO_PUBLIC_CLIENT_API_URL`, autenticación del
-  pool `tumandaito-dev-users` y checkout/pedidos legacy.
-- Repartidores conserva su API y repositorios DynamoDB propios.
-- Backend e infraestructura legacy siguen escribiendo
-  `tumandaito-dev-core`; retirarlos ahora interrumpiría operación.
-
-Por tanto, MasterERP aún no es la fuente de verdad operativa. Marcarlo o borrar
-recursos en este estado sería incorrecto.
-
-## Orden restante para el corte vertical
+## Evidencia de cierre del corte vertical
 
 1. Checkout canónico promovido, probado y con tráfico DEV conmutado; el índice
    previo permanece respaldado en `mastererp-phase8-rollback/`.
@@ -77,15 +71,14 @@ recursos en este estado sería incorrecto.
    y assets públicos verificados con hash exacto y HTTP 200.
 6. Ventana de observación aprobada durante 15 minutos después del checkout real:
    cero 4xx nuevos, 5xx, errores o throttling; Pedido y Reserva consistentes.
-7. Retirar la doble escritura y, solo con cero consumidores, retirar Lambdas,
-   APIs, tablas y código legacy.
+7. Doble escritura retirada reversiblemente y delta definitivo repetido durante
+   la pausa de las 36 funciones: 296/296 y SHA-256 firmado idéntico.
+8. Smokes finales: Storefront, Uonify, `/#/chat` y catálogo canónico HTTP 200;
+   creación y mutaciones legacy HTTP 410.
 
-El creador legacy `POST /orders` fue conmutado de forma reversible a HTTP 410
-después de confirmar cero invocaciones desde el cutover. Las lecturas, la
-cancelación y el seguimiento histórico permanecen disponibles. El Storefront
-canónico continuó sirviendo catálogo HTTP 200. Falta repetir el delta firmado
-bajo pausa final; el primer intento no inició porque el control de aprobación
-AWS alcanzó su límite, por lo que ninguna concurrencia fue modificada.
+No se eliminaron Lambdas, APIs, tablas, backups, Cognito ni DNS. Ese
+desmantelamiento requiere evidencia de una observación posterior y autorización
+explícita separada; no bloquea el cierre técnico de esta capacidad.
 
 La recuperación visual de TuMandadito queda explícitamente fuera de esta fase y
 se abordará después de terminar la migración técnica.

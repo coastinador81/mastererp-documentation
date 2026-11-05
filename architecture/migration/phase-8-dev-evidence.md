@@ -185,6 +185,34 @@ productos. No se eliminaron rutas, Lambdas, datos ni permisos, y las operaciones
 históricas permanecen intactas. La plantilla SAM conserva el mismo guard para
 evitar que un despliegue posterior reactive la creación legacy.
 
+## Clasificación y retiro de doble escritura
+
+Las 36 funciones con referencia a `tumandaito-dev-core` quedaron clasificadas:
+
+| Clasificación | Funciones |
+| --- | --- |
+| Escritura del corte retirada | `inventory-stock`, `inventory-adjustments`, `procurement-receiving`, `operations-orders`, `operations-preparation`, `order-projector`, `logistics-routes`, `logistics-drivers`, `nodes-assignments`, `client-driver`, `client-orders` |
+| Lectura efectiva | `client-store-config`, `inventory-movements`, `client-checkout`, `client-catalog`, `client-tracking`, `nodes-monitoring`, `reporting-dashboard`, `reporting-operations`, `reporting-finance` |
+| Fuera del corte | `client-customers`, `nodes-management`, `catalog-categories`, `finance-receivables`, `finance-cash`, `catalog-products`, `nodes-coverage`, `nodes-merchants`, `procurement-purchases`, `finance-payables`, `finance-payments`, `client-auth`, `catalog-taxes`, `procurement-suppliers`, `finance-invoicing`, `profile-management` |
+
+Los ocho handlers administrativos de la primera fila quedaron en concurrencia
+0. `client-orders` conserva GET, pero crear, cancelar y registrar referencia de
+pago responden 410. `client-driver` conserva GET de ruta y pedidos, pero inicio
+de ruta, incidentes y estado de entrega responden 410. El event source mapping
+`978e23ef-12ea-47f0-bce7-bab5a1f7bd88` del proyector quedó `Disabled`.
+
+El delta definitivo se ejecutó durante una pausa reversible de las 36 Lambdas.
+Seleccionó 296/296 registros y produjo nuevamente
+`6a6d9c5030bd7c63070a91876b9114b0d8d36553cddf8c15bc103589084a212d`.
+Al terminar, las 26 funciones no retiradas recuperaron su concurrencia previa;
+solo los ocho handlers retirados permanecieron en 0.
+
+Los cinco guards Client devolvieron 410 mediante `test-invoke-method`. Los
+smokes públicos finales devolvieron 200 para Storefront, Uonify, `/#/chat` y el
+catálogo canónico con 17 productos; `POST /orders` legacy devolvió 410. Esto
+formaliza MasterERP como fuente de verdad para nuevos checkouts, reservas y
+pedidos sin eliminar recursos legacy.
+
 ## Uonify: recorrido modular integrado
 
 El 2026-11-05 se publicó en `app-dev.uonify.com` el app-shell matriz con
