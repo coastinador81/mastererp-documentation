@@ -65,7 +65,7 @@ Esta prueba acredita recuperación de los datos DynamoDB. Aún falta ensayar la
 conmutación de tráfico de los canales y ejecutar escrituras E2E antes de marcar
 completa la puerta conjunta de pruebas/datos/rollback.
 
-## Uonify: primer recorrido modular integrado
+## Uonify: recorrido modular integrado
 
 El 2026-11-05 se publicó en `app-dev.uonify.com` el app-shell matriz con
 Productos y Pedidos mediante composición de código fuente, sin iframe ni copia
@@ -89,5 +89,24 @@ membresía QA sintética temporal. Resultado aprobado:
 - navegación dentro de `app-dev.uonify.com`, sin errores de navegador;
 - membresía temporal retirada al finalizar.
 
-Esta evidencia valida el patrón de inyección y el primer recorrido, no acredita
-todavía los módulos restantes ni escrituras desde navegador.
+En recorridos posteriores el mismo runner confirmó en una sola sesión:
+
+| Módulo | Resultado observado |
+| --- | ---: |
+| Productos | 27 |
+| Categorías | 11 |
+| Atributos | 0, contrato HTTP válido |
+| Marcas | 0, contrato HTTP válido |
+| Proveedores de catálogo | 8 |
+| Nodos | 5 |
+| Inventario | 42 en 5 nodos |
+| Pedidos | 9 |
+| Preparación | 5 |
+| Rutas | 3 |
+| Repartidores | 6 |
+| Tiendas | 1 |
+
+Todos se abrieron desde `app-dev.uonify.com`, con Cognito y contexto compartido,
+sin iframe y sin errores de navegador. La membresía QA temporal se retiró en
+cada ejecución. Esta evidencia acredita lecturas; las escrituras reversibles y
+el checkout autenticado siguen siendo puertas separadas.
