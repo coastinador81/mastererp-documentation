@@ -1,0 +1,189 @@
+﻿Diagnose log at 2026-11-11T19:43:12Z
+
+AppPath: C:\Program Files\Git\mingw64\bin\git-credential-manager.exe
+InstallDir: C:\Program Files\Git\mingw64\bin\
+Version: 2.6.1+786ab03440ddc82e807a97c0e540f5247e44cec6
+
+------------
+Diagnostic: Environment
+Skipped: False
+Success: True
+Exception: None
+Log:
+OSType: Windows
+OSVersion: 10.0 (build 26200)
+Reading environment variables... OK
+ Variables:
+HOMEPATH=\Users\artur
+DriverData=C:\Windows\System32\Drivers\DriverData
+COMPUTERNAME=ARTURO
+GIT_TRACE2_PARENT_SID=b7b0afd4-c095-4113-9d9c-17734de832bf
+CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files
+ProgramW6432=C:\Program Files
+OneDrive=C:\Users\artur\OneDrive
+ChocolateyLastPathUpdate=133958884849242008
+TMP=C:\Users\artur\AppData\Local\Temp
+PROCESSOR_REVISION=2001
+PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.CPL
+GIT_EXEC_PATH=C:/Program Files/Git/mingw64/libexec/git-core
+TEMP=C:\Users\artur\AppData\Local\Temp
+LOCALAPPDATA=C:\Users\artur\AppData\Local
+MSYSTEM=MINGW64
+TERM=xterm-256color
+COLORTERM=truecolor
+USERDOMAIN=ARTURO
+ProgramFiles(x86)=C:\Program Files (x86)
+Path=C:/Program Files/Git/mingw64/libexec/git-core;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\artur\bin;C:\Python314\Scripts\;C:\Python314\;C:\Python313\Scripts\;C:\Python313\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\MySQL\MySQL Server 9.3\bin;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\gs\gs10.05.1\bin;C:\Users\artur\AppData\Local\Muse Hub\lib;C:\Program Files\nodejs\;C:\Program Files\Amazon\AWSSAMCLI\bin\;C:\Program Files\Amazon\AWSCLIV2\;C:\Program Files\GitHub CLI\;C:\Users\artur\AppData\Local\Microsoft\WindowsApps;C:\Users\artur\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\artur\.dotnet\tools;C:\Users\artur\Desktop\Artron81\Respaldo uinify\respaldo\backend_inventario\venv\Scripts\python.exe;C:\Users\artur\AppData\Local\Muse Hub\lib;C:\Users\artur\AppData\Roaming\npm;C:\Users\artur\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\artur\AppData\Local\Programs\DockerDesktop\resources\bin
+PROCESSOR_LEVEL=23
+PROCESSOR_IDENTIFIER=AMD64 Family 23 Model 32 Stepping 1, AuthenticAMD
+TMPDIR=C:\Users\artur\AppData\Local\Temp
+PSModulePath=C:\Users\artur\Documents\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+PUBLIC=C:\Users\Public
+NUMBER_OF_PROCESSORS=2
+CommonProgramFiles=C:\Program Files (x86)\Common Files
+PLINK_PROTOCOL=ssh
+ProgramData=C:\ProgramData
+ProgramFiles=C:\Program Files (x86)
+ChocolateyInstall=C:\ProgramData\chocolatey
+Awscli=C:\Program Files\Amazon\AWSCLIV2\
+SystemRoot=C:\WINDOWS
+HOME=C:\Users\artur
+LC_CTYPE=C.UTF-8
+CommonProgramW6432=C:\Program Files\Common Files
+LOGONSERVER=\\ARTURO
+USERPROFILE=C:\Users\artur
+USERDOMAIN_ROAMINGPROFILE=ARTURO
+APPDATA=C:\Users\artur\AppData\Roaming
+HOMEDRIVE=C:
+USERNAME=artur
+PROCESSOR_ARCHITEW6432=AMD64
+PROCESSOR_ARCHITECTURE=x86
+OS=Windows_NT
+ComSpec=C:\WINDOWS\system32\cmd.exe
+SystemDrive=C:
+windir=C:\WINDOWS
+OneDriveConsumer=C:\Users\artur\OneDrive
+ALLUSERSPROFILE=C:\ProgramData
+
+
+------------
+Diagnostic: File system
+Skipped: False
+Success: True
+Exception: None
+Log:
+Temporary directory is 'C:\Users\artur\AppData\Local\Temp\'...
+Checking basic file I/O...
+Writing to temporary file 'C:\Users\artur\AppData\Local\Temp\9fc844dcb510700c727b4d2d'... OK
+Reading from temporary file 'C:\Users\artur\AppData\Local\Temp\9fc844dcb510700c727b4d2d'... OK
+Deleting temporary file 'C:\Users\artur\AppData\Local\Temp\9fc844dcb510700c727b4d2d'... OK
+Testing IFileSystem instance...
+UserHomePath: C:\Users\artur
+UserDataDirectoryPath: C:\Users\artur\.gcm
+GetCurrentDirectory(): C:\Users\artur\Desktop\Artron81\mastererp\mastererp-documentation
+
+------------
+Diagnostic: Networking
+Skipped: False
+Success: True
+Exception: None
+Log:
+Checking networking and HTTP stack...
+Creating HTTP client... OK
+IsNetworkAvailable: True
+Sending HEAD request to http://example.com...Sending HEAD request to https://example.com... OK
+ OK
+Acquiring free TCP port... OK
+Testing local HTTP loopback connections...
+Creating new HTTP listener for http://localhost:61188/... OK
+Waiting for loopback connection... OK
+Writing response... OK
+Waiting for response data... OK
+Loopback connection data OK
+
+------------
+Diagnostic: Git
+Skipped: False
+Success: True
+Exception: None
+Log:
+Getting Git version... OK
+Git version is '2.49.0.windows.1'
+Locating current repository...Git repository at 'C:/Users/artur/Desktop/Artron81/mastererp/mastererp-documentation/.git'
+ OK
+Listing all Git configuration... OK
+Git configuration:
+file:C:/Program Files/Git/etc/gitconfig	diff.astextplain.textconv=astextplain
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.clean=git-lfs clean -- %f
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.smudge=git-lfs smudge -- %f
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.process=git-lfs filter-process
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.required=true
+file:C:/Program Files/Git/etc/gitconfig	http.sslbackend=schannel
+file:C:/Program Files/Git/etc/gitconfig	core.autocrlf=true
+file:C:/Program Files/Git/etc/gitconfig	core.fscache=true
+file:C:/Program Files/Git/etc/gitconfig	core.symlinks=false
+file:C:/Program Files/Git/etc/gitconfig	pull.rebase=false
+file:C:/Program Files/Git/etc/gitconfig	credential.helper=manager
+file:C:/Program Files/Git/etc/gitconfig	credential.https://dev.azure.com.usehttppath=true
+file:C:/Program Files/Git/etc/gitconfig	init.defaultbranch=master
+file:C:/Users/artur/.gitconfig	credential.helper=manager
+file:C:/Users/artur/.gitconfig	user.email=arturo.guarique@gmail.com
+file:C:/Users/artur/.gitconfig	user.name=arturo
+file:C:/Users/artur/.gitconfig	safe.directory=C:/Users/artur/Desktop/p1
+file:C:/Users/artur/.gitconfig	safe.directory=C:/Users/artur/easyqueue-backend
+file:C:/Users/artur/.gitconfig	safe.directory=C:/Users/artur/Desktop/Artron81/tumandaito/tumandaito-frontends
+file:C:/Users/artur/.gitconfig	safe.directory=C:/Users/artur/Desktop/Artron81/tumandaito/tumandaito-infrastructure
+file:C:/Users/artur/.gitconfig	safe.directory=C:/Users/artur/Desktop/Artron81/tumandaito/tumandaito-backend
+file:C:/Users/artur/.gitconfig	safe.directory=C:/Users/artur/Desktop/Artron81/tumandaito/tumandaito-finance/tumandaito-finance-frontend
+file:C:/Users/artur/.gitconfig	core.autocrlf=input
+file:.git/config	core.repositoryformatversion=0
+file:.git/config	core.filemode=false
+file:.git/config	core.bare=false
+file:.git/config	core.logallrefupdates=true
+file:.git/config	core.symlinks=false
+file:.git/config	core.ignorecase=true
+file:.git/config	remote.origin.url=https://github.com/coastinador81/mastererp-documentation.git
+file:.git/config	remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+file:.git/config	branch.main.remote=origin
+file:.git/config	branch.main.merge=refs/heads/main
+file:.git/config	branch.dev.remote=origin
+file:.git/config	branch.dev.merge=refs/heads/dev
+file:.git/config	remote.upstream.url=https://github.com/eticayservicios/mastererp-documentation.git
+file:.git/config	remote.upstream.fetch=+refs/heads/*:refs/remotes/upstream/*
+
+
+------------
+Diagnostic: Credential storage
+Skipped: False
+Success: True
+Exception: None
+Log:
+ICredentialStore instance is of type: CredentialStore
+Writing test credential... OK
+Reading test credential... OK
+Deleting test credential... OK
+
+------------
+Diagnostic: Microsoft authentication (AAD/MSA)
+Skipped: False
+Success: True
+Exception: None
+Log:
+Broker is not enabled.
+Flow type is: Auto
+Gathering MSAL token cache data... OK
+CacheDirectory: C:\Users\artur\AppData\Local\.IdentityService
+CacheFileName: msal.cache
+CacheFilePath: C:\Users\artur\AppData\Local\.IdentityService\msal.cache
+Creating cache helper... OK
+Verifying MSAL token cache persistence... OK
+
+------------
+Diagnostic: GitHub API
+Skipped: False
+Success: True
+Exception: None
+Log:
+Using 'https://github.com/' as API target.
+Querying '/meta' endpoint... OK
+
