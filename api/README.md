@@ -1,6 +1,6 @@
 Contratos, guías y ejemplos de integración.
 
-- [Pedidos v1](orders-v1.md) — perfil operativo implementado como candidato no desplegado.
+- [Pedidos v1](orders-v1.md) — contrato operativo implementado; los cambios nuevos requieren promoción autorizada a DEV.
 - [Productos v1](products-v1.md) — maestro canónico implementado como candidato no desplegado.
 - [Inventario v1](inventory-v1.md) — stock y reservas por nodo, candidato no desplegado.
 - [Nodos v1](nodes-v1.md) — perfil operativo de sucursales, candidato no desplegado.

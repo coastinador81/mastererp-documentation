@@ -269,19 +269,26 @@ Objetivo MasterERP:
 
 Creación nueva devuelve éxito de creación; replay idempotente devuelve el recurso previamente creado. Incluye ID/número, estado, cliente, importes, moneda, ventana, líneas y timestamps. Nunca devuelve el código secreto de entrega en una respuesta no autorizada.
 
-## 7. Listado y filtros
+## 7. Listado, filtros y acciones agrupadas
 
 Filtros actuales que deben conservar semántica inicialmente:
 
 - `status`;
 - búsqueda textual;
 - fecha desde/hasta en `YYYY-MM-DD`;
-- `routeId`;
-- `nodeIds` dentro del alcance autorizado;
-- cursor opaco;
-- límite 1–100, predeterminado 50.
+- método de pago;
+- orden por fecha, más recientes o más antiguos;
+- cursor keyset compuesto por fecha e ID;
+- límite 1–100, predeterminado 25.
 
-El cursor debe estar ligado al tenant, actor/alcance, filtros y orden. No puede reutilizarse para cambiar de tenant o ampliar alcance.
+El backend vuelve a autorizar tenant y empresa en cada página. El cursor se
+interpreta con los filtros y el orden de la misma petición; el frontend no
+descarga un subconjunto fijo para simular búsqueda completa.
+
+`POST /v1/companies/{company_id}/orders/bulk-transitions` recibe entre 1 y 50
+pares `id/version`, un único estado (`CONFIRMED` o `CANCELLED`) y motivo. Todo el
+lote se ejecuta en la misma transacción: cualquier autorización, versión o
+precondición inválida revierte todas las transiciones.
 
 ## 8. Autenticación y autorización
 
