@@ -13,8 +13,6 @@ implementado como candidato y permanece pendiente de despliegue.
 | POST | `/v1/companies/{company_id}/routes/{route_id}/stops/{order_id}` | `DELIVERED` o `FAILED` |
 | GET | `/v1/companies/{company_id}/driver-route` | Ruta activa del repartidor autenticado |
 | POST | `/v1/companies/{company_id}/routes/{route_id}/driver-deliveries/{order_id}` | Resultado de una parada propia |
-| GET | `/v1/storefront/driver-route?domain={domain}` | Ruta propia desde Storefront |
-| POST | `/v1/storefront/routes/{route_id}/driver-deliveries/{order_id}?domain={domain}` | Resultado propio desde Storefront |
 
 Crear exige `Idempotency-Key`; asignación y transiciones usan versión
 optimista. Una ruta no se completa con paradas pendientes.
@@ -26,10 +24,11 @@ El usuario debe estar vinculado a un perfil `ACTIVE` con acceso `LINKED`, tener
 comprueba que la ruta esté asignada a ese perfil; la UI no puede indicar otro
 repartidor.
 
-La experiencia operativa vive en el Storefront autenticado como **Mis rutas**,
-junto al carrito. El dominio resuelve internamente la tienda y empresa; el
-cliente no selecciona `company_id`. El Admin de E-commerce conserva únicamente
-planificación y consulta operativa.
+La experiencia operativa vive en la aplicación independiente **Repartidores**,
+con la misma sesión Cognito y selección autorizada de tenant y empresa que las
+demás aplicaciones Uonify. El Storefront público no expone capacidades internas.
+E-commerce conserva la planificación de rutas; Repartidores administra perfiles
+y permite al conductor vinculado ejecutar exclusivamente su propia ruta.
 
 `DELIVERED` exige latitud, longitud y precisión del dispositivo. Database
 compara la evidencia con las coordenadas inmutables del pedido y rechaza

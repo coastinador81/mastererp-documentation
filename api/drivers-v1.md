@@ -9,7 +9,9 @@ claims. Rutas será propietaria de la ruta activa y de su ciclo de entrega.
 
 El vínculo de acceso se realiza con el UUID de un usuario existente del tenant.
 No crea identidades ni duplica Cognito. El usuario dedicado debe usar el rol
-`tenant.driver`; `tenant.owner` también conserva acceso administrativo. El
+`tenant.driver`; `tenant.owner` conserva acceso administrativo completo a la
+aplicación Repartidores y, si su usuario está vinculado a un perfil, puede usar
+también **Mi ruta**. El
 backend vuelve a comprobar vínculo, rol/capacidad, empresa, nodo y propiedad de
 la ruta en cada entrega.
 
