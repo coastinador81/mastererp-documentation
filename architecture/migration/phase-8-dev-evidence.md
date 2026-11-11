@@ -215,7 +215,7 @@ pedidos sin eliminar recursos legacy.
 
 ## Uonify: recorrido modular integrado
 
-El 2026-11-05 se publicó en `app-dev.uonify.com` el app-shell matriz con
+El 2026-11-05 se publicó en `app-dev.uonify.com` el app-shell entonces matriz con
 Productos y Pedidos mediante composición de código fuente, sin iframe ni copia
 de pantallas. Ambos conservan su build independiente y comparten el mismo
 componente con Uonify. El menú exige módulo y permiso; cada petición vuelve a
@@ -254,7 +254,7 @@ En recorridos posteriores el mismo runner confirmó en una sola sesión:
 | Repartidores | 6 |
 | Tiendas | 1 |
 
-Todos se abrieron desde `app-dev.uonify.com`, con Cognito y contexto compartido,
+Todos se abrieron históricamente desde `app-dev.uonify.com`, con Cognito y contexto compartido,
 sin iframe y sin errores de navegador. La membresía QA temporal se retiró en
 cada ejecución. Esta evidencia acredita lecturas; las escrituras reversibles y
 el checkout autenticado siguen siendo puertas separadas.

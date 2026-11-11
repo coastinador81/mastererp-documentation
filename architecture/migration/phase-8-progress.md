@@ -6,8 +6,10 @@ queda pendiente de autorización separada.
 
 ## Decisiones de producto confirmadas
 
-- `app-dev.uonify.com` es la interfaz matriz integrada. Inicio, módulos y chat
-  operativo coexisten; el chat se conserva en `/#/chat` y no se elimina.
+- Esta fase acreditó históricamente la interfaz integrada de
+  `app-dev.uonify.com`. La arquitectura vigente sitúa el producto principal y
+  la entrada general en `dev.uonify.com`; `app-dev` permanece como shell
+  administrativo anterior y su evidencia no se reinterpreta como objetivo.
 - Los clientes Storefront migran al Cognito de MasterERP y deberán iniciar
   sesión nuevamente. La identidad se vincula solo por `issuer + sub`; queda
   prohibido asociar automáticamente cuentas por coincidencia de correo.
