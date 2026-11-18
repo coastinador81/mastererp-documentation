@@ -32,8 +32,8 @@ por ejecuciones huérfanas de GitHub Actions, no por un fallo conocido de build.
 
 | Frente | Publicado o comprobado en DEV | Implementado/validado localmente | Falta para cierre |
 | --- | --- | --- | --- |
-| Pedidos | Flujo operativo y APIs existentes; checkout crea pedidos; navegación Pedido → Ruta; estado financiero visible; comprobante operativo PDF; devoluciones administrativas hasta recepción e inventario | Contrato de devoluciones separado, autorización por permisos y conciliación financiera endurecida | Smoke autenticado del ciclo de devolución; documentos fiscales y nota de crédito pertenecen a Finanzas |
-| Devoluciones | Solicitud, decisión, recepción, reintegro apto a inventario, expediente e historial desplegados en DEV | El cierre exige referencias verificables de Tesorería y nota de crédito del mismo tenant, empresa, cliente y pedido | Finanzas debe emitir/vincular los registros fiscales y monetarios reales para pasar de `RECEIVED` a `COMPLETED` |
+| Pedidos | Flujo operativo y APIs existentes; checkout crea pedidos; navegación Pedido → Ruta; estado financiero visible; comprobante operativo PDF; devoluciones administrativas validadas hasta recepción e inventario | Punto 8 cerrado dentro de Pedidos; conciliación financiera endurecida | Documentos fiscales, reembolso y nota de crédito pertenecen a Finanzas; punto 9 en curso |
+| Devoluciones | Solicitud, decisión, recepción, reintegro apto a inventario, expediente, historial y bloqueo de cantidades duplicadas comprobados en DEV | El cierre exige referencias verificables de Tesorería y nota de crédito del mismo tenant, empresa, cliente y pedido | Finanzas debe emitir/vincular los registros reales para pasar de `RECEIVED` a `COMPLETED` |
 | Notas internas | Contrato y persistencia real implementados | Documentación alineada | Smoke final con identidades autorizadas después de publicar |
 | Cancelación | Cancelación coordinada de pedido, reserva y venta implementada con autorización y auditoría | Cobertura y documentación alineadas | Validación E2E del artefacto publicado, incluidos conflictos y compensaciones |
 | Historial | Historial real de transiciones expuesto por backend y mostrado en la ficha | Lectura autorizada y estados visuales alineados | Validación E2E de actor, fecha, motivo y orden cronológico |
@@ -97,9 +97,8 @@ No ofrece “Confirmar pedido” cuando el pago requiere revisión financiera.
   rotulada “NO ES UNA FACTURA FISCAL” hasta integrar el propietario fiscal.
 - Integrar desde Finanzas la factura y la nota de crédito fiscal reales. Pedidos
   no las fabrica ni acepta referencias financieras libres.
-- Ejecutar un smoke autenticado completo de devolución con las identidades de
-  Operaciones, Almacén y Finanzas.
-- Realizar smoke autenticado en DEV del corte local después de su publicación.
+- Completar desde Finanzas el expediente recibido con egreso y nota de crédito
+  reales; Pedidos no puede fabricar esas referencias.
 
 ### Devoluciones: contrato publicado en DEV
 
@@ -130,6 +129,39 @@ Pedidos, Rutas, Mi ruta y Repartidores comparten notificaciones flotantes,
 visibles desde cualquier posición de scroll y persistentes hasta cierre manual.
 Los códigos operativos conocidos, como `invalid_transition`, se presentan como
 mensajes accionables para el usuario sin perder el código contractual del API.
+
+### Cierre del punto 8
+
+El 18 de noviembre de 2026 se ejecutó en DEV el flujo real de un pedido
+entregado: solicitud, autorización, recepción e ingreso apto a Inventario. La
+ficha reflejó el expediente en `RECEIVED`, su historial y el pendiente de
+reembolso/nota de crédito en Finanzas. También se verificó que una línea ya
+comprometida no vuelva a ofrecer «Nueva devolución». Por tanto, el punto 8 se
+cierra para Pedidos; el asiento monetario y el documento fiscal permanecen en
+el dominio propietario de Finanzas.
+
+### Inicio del punto 9: cancelaciones por etapa
+
+La auditoría inicial confirma que el comando coordinado publicado cubre
+`PENDING` y `CONFIRMED`. Pago rechazado continúa siendo un pedido `PENDING` y
+requiere una prueba explícita. `PREPARING`, `READY` y `OUT_FOR_DELIVERY` no
+tienen todavía un contrato integral que deshaga o cierre correctamente
+Preparación, Inventario, venta, parada, ruta y disponibilidad del conductor.
+El punto 9 permanece abierto hasta implementar y validar esa matriz sin efectos
+parciales y con autorización backend real.
+
+Política aprobada por el Product Owner e implementada en el candidato local:
+permitir la cancelación coordinada en pago pendiente/rechazado, confirmado y preparación;
+en `READY`, exigir reversión trazable de existencias al nodo; en
+`OUT_FOR_DELIVERY`, impedir la cancelación directa hasta cerrar la parada como
+no entregada y confirmar el retorno físico. Nunca se repone inventario mientras
+la mercancía siga con el repartidor.
+
+El candidato añade movimiento `RESTOCK`, estado de reserva `REVERSED`, cancela
+la preparación relacionada y registra el evento del pedido en la misma
+transacción. Las pruebas SQL focalizadas pasan en PostgreSQL desechable. Falta
+workflow de Database, publicación de Orders y smoke autenticado por etapa en
+DEV antes de cerrar el punto 9.
 
 ## Transporte, Rutas y Repartidores
 
