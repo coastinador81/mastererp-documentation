@@ -70,6 +70,10 @@ por ejecuciones huérfanas de GitHub Actions, no por un fallo conocido de build.
 - Devoluciones administrativas parciales con solicitud, autorización o rechazo,
   recepción, condición de mercancía, reintegro controlado a Inventario e
   historial inmutable.
+- La ficha ordena Productos, Historial, Devoluciones e Intentos; las tres
+  cronologías operativas comparten un acordeón inicialmente cerrado.
+- Los pedidos nuevos preservan en su snapshot nombre, correo y teléfono
+  disponibles dentro del mismo tenant y empresa.
 
 ### Responsabilidad entre Operaciones y Finanzas
 
@@ -110,7 +114,8 @@ El flujo es administrativo y está aislado por `tenant_id + company_id`:
    financieros han sido verificados en la misma empresa, cliente y pedido.
 
 Estados: `REQUESTED`, `AUTHORIZED`, `REJECTED`, `RECEIVED` y `COMPLETED`.
-Todos los cambios generan eventos inmutables con actor, fecha y correlación.
+Todos los cambios generan eventos inmutables con actor, fecha y correlación, y
+se incorporan a la cronología consolidada del pedido.
 La interfaz de Pedidos cubre los pasos 1 a 4 y muestra `Pendiente de Finanzas`
 después de la recepción; no expone campos para inventar identificadores de
 reembolso o nota de crédito. La solicitud directa desde Storefront no forma
