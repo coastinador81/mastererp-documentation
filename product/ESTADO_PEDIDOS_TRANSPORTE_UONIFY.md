@@ -1,6 +1,6 @@
 # Estado consolidado: Pedidos, Transporte y experiencia Uonify
 
-Fecha de corte: 11 de noviembre de 2026.  
+Fecha de corte: 18 de noviembre de 2026.
 Rama de trabajo: `dev` en los cuatro repositorios MasterERP.
 
 Este documento separa deliberadamente lo **publicado en DEV**, lo
@@ -32,7 +32,8 @@ por ejecuciones huérfanas de GitHub Actions, no por un fallo conocido de build.
 
 | Frente | Publicado o comprobado en DEV | Implementado/validado localmente | Falta para cierre |
 | --- | --- | --- | --- |
-| Pedidos | Flujo operativo y APIs existentes; checkout crea pedidos; navegación Pedido → Ruta; estado financiero visible | Búsqueda y paginación reales por backend, acciones agrupadas transaccionales, permiso de escritura restrictivo por defecto, estados `VALIDATED`/`REJECTED`, tokens visuales compartidos y build independiente | Publicar el corte local y hacer smoke autenticado en navegador; documentos fiscales; comprobante de entrega descargable; devoluciones y reembolsos mediante contrato separado |
+| Pedidos | Flujo operativo y APIs existentes; checkout crea pedidos; navegación Pedido → Ruta; estado financiero visible; comprobante operativo PDF; devoluciones administrativas hasta recepción e inventario | Contrato de devoluciones separado, autorización por permisos y conciliación financiera endurecida | Smoke autenticado del ciclo de devolución; documentos fiscales y nota de crédito pertenecen a Finanzas |
+| Devoluciones | Solicitud, decisión, recepción, reintegro apto a inventario, expediente e historial desplegados en DEV | El cierre exige referencias verificables de Tesorería y nota de crédito del mismo tenant, empresa, cliente y pedido | Finanzas debe emitir/vincular los registros fiscales y monetarios reales para pasar de `RECEIVED` a `COMPLETED` |
 | Notas internas | Contrato y persistencia real implementados | Documentación alineada | Smoke final con identidades autorizadas después de publicar |
 | Cancelación | Cancelación coordinada de pedido, reserva y venta implementada con autorización y auditoría | Cobertura y documentación alineadas | Validación E2E del artefacto publicado, incluidos conflictos y compensaciones |
 | Historial | Historial real de transiciones expuesto por backend y mostrado en la ficha | Lectura autorizada y estados visuales alineados | Validación E2E de actor, fecha, motivo y orden cronológico |
@@ -64,6 +65,11 @@ por ejecuciones huérfanas de GitHub Actions, no por un fallo conocido de build.
 - Pagos electrónicos usan `PENDING_VERIFICATION`, `VALIDATED` y `REJECTED`;
   efectivo o punto de venta conserva `PENDING_COLLECTION`.
 - Navegación directa desde un pedido hasta su ruta cuando existe `route_ref`.
+- Comprobante de entrega operativo en PDF, derivado de evidencia real y rotulado
+  expresamente como no fiscal.
+- Devoluciones administrativas parciales con solicitud, autorización o rechazo,
+  recepción, condición de mercancía, reintegro controlado a Inventario e
+  historial inmutable.
 
 ### Responsabilidad entre Operaciones y Finanzas
 
@@ -85,10 +91,30 @@ No ofrece “Confirmar pedido” cuando el pago requiere revisión financiera.
 
 - Emitir documentos fiscales reales. La descarga actual debe continuar
   rotulada “NO ES UNA FACTURA FISCAL” hasta integrar el propietario fiscal.
-- Descargar el comprobante de entrega con la evidencia autorizada.
-- Diseñar devoluciones y reembolsos parciales como contrato separado entre
-  Pedidos, Inventario y Finanzas; no incorporarlos como estados improvisados.
+- Integrar desde Finanzas la factura y la nota de crédito fiscal reales. Pedidos
+  no las fabrica ni acepta referencias financieras libres.
+- Ejecutar un smoke autenticado completo de devolución con las identidades de
+  Operaciones, Almacén y Finanzas.
 - Realizar smoke autenticado en DEV del corte local después de su publicación.
+
+### Devoluciones: contrato publicado en DEV
+
+El flujo es administrativo y está aislado por `tenant_id + company_id`:
+
+1. Un usuario con permiso solicita cantidades de un pedido entregado.
+2. Un usuario autorizado aprueba o rechaza el expediente.
+3. Almacén registra recepción, condición, nodo y cantidad apta para reventa.
+4. Inventario registra movimiento `RETURN` solo por unidades recibidas aptas.
+5. Finanzas crea o vincula el egreso real y la nota de crédito correspondiente.
+6. El expediente pasa a `COMPLETED` únicamente cuando ambos registros
+   financieros han sido verificados en la misma empresa, cliente y pedido.
+
+Estados: `REQUESTED`, `AUTHORIZED`, `REJECTED`, `RECEIVED` y `COMPLETED`.
+Todos los cambios generan eventos inmutables con actor, fecha y correlación.
+La interfaz de Pedidos cubre los pasos 1 a 4 y muestra `Pendiente de Finanzas`
+después de la recepción; no expone campos para inventar identificadores de
+reembolso o nota de crédito. La solicitud directa desde Storefront no forma
+parte de esta etapa.
 
 ## Transporte, Rutas y Repartidores
 
@@ -192,8 +218,8 @@ permanecer sin publicar y conservarse sin sobrescribir trabajo existente.
    autorizado.
 5. Probar “Mi ruta” de extremo a extremo: inicio, incidencia, entrega, cierre de
    ruta y liberación del repartidor.
-6. Cerrar comprobante de entrega y definir el contrato separado de devoluciones
-   y reembolsos.
+6. Probar en DEV el ciclo administrativo de devolución y conectar desde
+   Finanzas la emisión/vinculación real del reembolso y nota de crédito.
 7. Diseñar Nodos como aplicación independiente con visión de sucursal, sin
    duplicar capacidades canónicas.
 8. Preparar una fuente neutral de tokens para web y móvil, generando las
@@ -208,4 +234,3 @@ permanecer sin publicar y conservarse sin sobrescribir trabajo existente.
 - [Validación financiera](FLUJO_VALIDACION_PAGOS_ECOMMERCE.md)
 - `mastererp-platform/frontend/modules/2.3-ecommerce/2.3.1-orders/README.md`
 - `mastererp-platform/frontend/modules/2.10-transport/README.md`
-
