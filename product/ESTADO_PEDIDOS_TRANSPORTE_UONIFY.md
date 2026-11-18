@@ -121,6 +121,16 @@ después de la recepción; no expone campos para inventar identificadores de
 reembolso o nota de crédito. La solicitud directa desde Storefront no forma
 parte de esta etapa.
 
+La interfaz descuenta de cada línea las cantidades comprometidas en expedientes
+no rechazados. Sólo ofrece el remanente y oculta «Nueva devolución» cuando el
+pedido ya no contiene unidades retornables; el backend vuelve a validar la
+regla para cubrir concurrencia y clientes desactualizados.
+
+Pedidos, Rutas, Mi ruta y Repartidores comparten notificaciones flotantes,
+visibles desde cualquier posición de scroll y persistentes hasta cierre manual.
+Los códigos operativos conocidos, como `invalid_transition`, se presentan como
+mensajes accionables para el usuario sin perder el código contractual del API.
+
 ## Transporte, Rutas y Repartidores
 
 ### Límites de propiedad
